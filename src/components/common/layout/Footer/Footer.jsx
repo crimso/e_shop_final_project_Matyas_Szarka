@@ -1,5 +1,5 @@
 import React from "react";
 
 export const Footer = () => {
-  return <div>Footer</div>;
+  return <div className="bg-amber-600 flex justify-center">Footer</div>;
 };

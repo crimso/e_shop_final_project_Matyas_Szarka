@@ -5,7 +5,7 @@ import { Footer } from "../Footer/Footer";
 
 export const AppLayout = () => {
   return (
-    <div className="">
+    <div className="flex flex-col justify-between">
       <NavigationBar />
       <main>
         <Outlet />
