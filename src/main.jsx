@@ -8,9 +8,7 @@ import { BrowserRouter } from "react-router";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <HeroUIProvider>
-        <App />
-      </HeroUIProvider>
+      <App />
     </BrowserRouter>
   </StrictMode>
 );
