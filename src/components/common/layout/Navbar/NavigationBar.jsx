@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router";
+import { useLocation, Link as RouterLink } from "react-router-dom";
 
 // export const Navbar = () => {
 //   return <div>Navbar</div>;
@@ -34,22 +34,14 @@ export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
 
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Products", path: "/products" },
   ];
 
   return (
     <Navbar
-      className="border-2 border-b-gray-400"
+      className="border-b-2 border-b-gray-400"
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarContent>
@@ -64,10 +56,11 @@ export function NavigationBar() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem isActive={location.pathname === "/"}>
+        {/* <NavbarItem isActive={location.pathname === "/"}>
           <Link
-            className="text-black hover:text-blue-700 focus:text-blue-800"
-            href="/"
+            as={RouterLink}
+            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
+            to="/"
             aria-current={location.pathname === "/" ? "page" : undefined}
           >
             Home
@@ -75,31 +68,50 @@ export function NavigationBar() {
         </NavbarItem>
         <NavbarItem isActive={location.pathname === "/products"}>
           <Link
-            className="text-black hover:text-blue-700 focus:text-blue-800"
+            as={RouterLink}
+            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
             color="foreground"
-            href="/products"
+            to="/products"
             aria-current={
               location.pathname === "/products" ? "page" : undefined
             }
           >
             Products
           </Link>
-        </NavbarItem>
-        {/* <NavbarItem>
-          <Link color="foreground" href="#">
-            Products second
-          </Link>
         </NavbarItem> */}
+        {navLinks.map((link) => (
+          <NavbarItem
+            key={link.path}
+            isActive={location.pathname === link.path}
+          >
+            <Link
+              as={RouterLink}
+              className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
+              to={link.path}
+              aria-current={
+                location.pathname === link.path ? "page" : undefined
+              }
+            >
+              {link.name}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="/auth/login">Login</Link>
+          <Link
+            as={RouterLink}
+            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
+            to="/auth/login"
+          >
+            Login
+          </Link>
         </NavbarItem>
         <NavbarItem>
           <Button
-            as={Link}
-            color="primary"
-            href="/auth/register"
+            as={RouterLink}
+            className="bg-indigo-600 text-white text-base font-medium"
+            to="/auth/register"
             variant="flat"
           >
             Register
@@ -107,24 +119,28 @@ export function NavigationBar() {
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
+        {navLinks.map((link, index) => (
+          <NavbarMenuItem key={`${link.name}-${index}`}>
+            <Link as={RouterLink} className="w-full" to={link.path} size="lg">
+              {link.name}
             </Link>
           </NavbarMenuItem>
         ))}
+        <NavbarMenuItem>
+          <Link as={RouterLink} className="w-full" to="/auth/login" size="lg">
+            Login
+          </Link>
+        </NavbarMenuItem>
+        <NavbarMenuItem>
+          <Link
+            as={RouterLink}
+            className="w-full"
+            to="/auth/register"
+            size="lg"
+          >
+            Register
+          </Link>
+        </NavbarMenuItem>
       </NavbarMenu>
     </Navbar>
   );

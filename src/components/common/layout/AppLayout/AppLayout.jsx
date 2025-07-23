@@ -5,9 +5,9 @@ import { Footer } from "../Footer/Footer";
 
 export const AppLayout = () => {
   return (
-    <div className="flex flex-col justify-between">
+    <div className="flex flex-col min-h-screen">
       <NavigationBar />
-      <main>
+      <main className="bg-gray-50 flex-grow items-center justify-center font-sans">
         <Outlet />
       </main>
       <Footer />

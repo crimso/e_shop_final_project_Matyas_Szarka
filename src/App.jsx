@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Route, Routes, useNavigate, useHref } from "react-router";
+import { Route, Routes, useNavigate, useHref } from "react-router-dom";
 
 import { AppLayout } from "./components/common/layout/AppLayout/AppLayout";
 import { HomePage } from "./pages/HomePage/HomePage";
