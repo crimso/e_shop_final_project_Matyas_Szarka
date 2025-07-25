@@ -121,20 +121,30 @@ export function NavigationBar() {
       <NavbarMenu>
         {navLinks.map((link, index) => (
           <NavbarMenuItem key={`${link.name}-${index}`}>
-            <Link as={RouterLink} className="w-full" to={link.path} size="lg">
+            <Link
+              as={RouterLink}
+              className="w-full text-indigo-500 font-medium"
+              to={link.path}
+              size="lg"
+            >
               {link.name}
             </Link>
           </NavbarMenuItem>
         ))}
         <NavbarMenuItem>
-          <Link as={RouterLink} className="w-full" to="/auth/login" size="lg">
+          <Link
+            as={RouterLink}
+            className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
+            to="/auth/login"
+            size="lg"
+          >
             Login
           </Link>
         </NavbarMenuItem>
         <NavbarMenuItem>
           <Link
             as={RouterLink}
-            className="w-full"
+            className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
             to="/auth/register"
             size="lg"
           >

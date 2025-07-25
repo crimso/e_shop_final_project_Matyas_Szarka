@@ -5,9 +5,9 @@ import { Footer } from "../Footer/Footer";
 
 export const AppLayout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="">
       <NavigationBar />
-      <main className="bg-gray-50 flex-grow items-center justify-center font-sans">
+      <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-between font-sans px-4 md:px-8 lg:px-12 overflow-x-hidden">
         <Outlet />
       </main>
       <Footer />

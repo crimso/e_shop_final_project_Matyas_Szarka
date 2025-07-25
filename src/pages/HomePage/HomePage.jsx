@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-white rounded-lg shadow-xl m-4 md:m-8 lg:m-12 flex-grow">
+    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-white rounded-lg shadow-xl my-4 md:my-8 lg:my-12 flex-grow transition-all duration-300 ease-in-out">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="flex flex-col justify-center space-y-4 text-center lg:text-left p-4">
@@ -38,7 +38,7 @@ export const HomePage = () => {
               alt="Hero Image"
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last border border-gray-200 shadow-md"
               onError={(e) => {
-                e.target.onerror = null; // Prevents infinite loop if fallback also fails
+                e.target.onerror = null;
                 e.target.src =
                   "https://placehold.co/600x400/E0E7FF/4338CA?text=Image+Not+Found"; // Fallback image
               }}
