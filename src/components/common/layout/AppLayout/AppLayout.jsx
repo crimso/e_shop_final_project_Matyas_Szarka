@@ -7,10 +7,12 @@ export const AppLayout = () => {
   return (
     <div className="">
       <NavigationBar />
-      <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-between font-sans px-4 md:px-8 lg:px-12 overflow-x-hidden">
+      <main className="flex justify-center">
         <Outlet />
       </main>
       <Footer />
     </div>
   );
 };
+
+//min-h-screen bg-gray-50 flex flex-col items-center justify-between font-sans px-4 md:px-8 lg:px-12 overflow-x-hidden

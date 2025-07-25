@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export const HomePage = () => {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-white rounded-lg shadow-xl my-4 md:my-8 lg:my-12 flex-grow transition-all duration-300 ease-in-out">
+    <section className="w-full py-12 mx-8 md:py-24 lg:py-32 xl:py-48 bg-amber-400 rounded-lg shadow-xl my-4 md:my-8 lg:my-12 grow-0 transition-all duration-300 ease-in-out">
       <div className="container px-4 md:px-6 mx-auto">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
           <div className="flex flex-col justify-center space-y-4 text-center lg:text-left p-4">
