@@ -1,11 +1,17 @@
-import { useState, useEffect } from "react";
-import { createContext } from "react";
+import { useState, useEffect, createContext, useContext, useMemo } from "react";
 
-export const CardContext = createContext({
-  products: [],
-  loading: true,
-  error: null,
-});
+// It's a good practice to not export the context itself to prevent misuse.
+// Consumers should use the custom hook `useProducts`.
+// Initialize with `undefined` to make the check in `useProducts` work correctly.
+const ProductContext = createContext(undefined);
+
+export const useProducts = () => {
+  const context = useContext(ProductContext);
+  if (context === undefined) {
+    throw new Error("useProducts must be used within a ProductProvider");
+  }
+  return context;
+};
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
@@ -30,16 +36,14 @@ export const ProductProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  const value = { products, loading, error };
+  // useMemo prevents the context value from being a new object on every render,
+  // which would cause all consumers to re-render unnecessarily.
+  const value = useMemo(
+    () => ({ products, loading, error }),
+    [products, loading, error]
+  );
 
   return (
-    <>
-      <CardContext.Provider value={value}>{children}</CardContext.Provider>
-    </>
+    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
   );
 };

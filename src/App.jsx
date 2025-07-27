@@ -11,24 +11,30 @@ import { Basket } from "./pages/Basket/Basket";
 import { HeroUIProvider } from "@heroui/react";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { AuthLayout } from "./components/common/layout/AuthLayout/AuthLayout";
+import { ProductProvider } from "./context/ProductContext";
+import { CartProvider } from "./context/CartContext";
 
 export function App() {
   const navigate = useNavigate();
   return (
-    <HeroUIProvider navigate={navigate} useHref={useHref}>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="products" element={<ProductPage />} />
-          <Route path="basket" element={<Basket />} />
-        </Route>
-        <Route path="/auth" element={<AuthLayout />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<RegisterPage />} />
-        </Route>
+    <ProductProvider>
+      <CartProvider>
+        <HeroUIProvider navigate={navigate} useHref={useHref}>
+          <Routes>
+            <Route path="/" element={<AppLayout />}>
+              <Route index element={<HomePage />} />
+              <Route path="products" element={<ProductPage />} />
+              <Route path="basket" element={<Basket />} />
+            </Route>
+            <Route path="/auth" element={<AuthLayout />}>
+              <Route path="login" element={<LoginPage />} />
+              <Route path="register" element={<RegisterPage />} />
+            </Route>
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </HeroUIProvider>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </HeroUIProvider>
+      </CartProvider>
+    </ProductProvider>
   );
 }

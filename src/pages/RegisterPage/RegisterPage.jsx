@@ -54,10 +54,10 @@ export const RegisterPage = () => {
   };
 
   return (
-    <>
+    <div>
       <h1 className="text-2xl font-bold text-center mb-6">Create an Account</h1>
       <form className="space-y-4" onSubmit={handleSubmit} noValidate />
-      <div >
+      <div className="py-2">
         <Input
           name="email"
           label="Email"
@@ -70,7 +70,7 @@ export const RegisterPage = () => {
           errorMessage={errors.email}
         />
       </div>
-      <div>
+      <div className="py-2">
         <Input
           name="password"
           label="Password"
@@ -83,7 +83,7 @@ export const RegisterPage = () => {
           errorMessage={errors.password}
         />
       </div>
-      <div>
+      <div className="py-2">
         <Input
           name="confirmPassword"
           label="Confirm Password"
@@ -97,6 +97,6 @@ export const RegisterPage = () => {
         />
       </div>
       <Button color="primary" fullWidth type="submit" className="mt-2" />
-    </>
+    </div>
   );
 };

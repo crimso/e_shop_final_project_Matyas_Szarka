@@ -1,5 +1,7 @@
 import React from "react";
 import { useLocation, Link as RouterLink } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useCart } from "../../../../context/CartContext";
 
 // export const Navbar = () => {
 //   return <div>Navbar</div>;
@@ -15,6 +17,7 @@ import {
   NavbarMenuItem,
   Link,
   Button,
+  Badge,
 } from "@heroui/react";
 
 export const AcmeLogo = () => {
@@ -33,11 +36,16 @@ export const AcmeLogo = () => {
 export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
+  const { cart } = useCart();
 
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
   ];
+
+  const totalAmount = cart.reduce((total, item) => {
+    return total + item.amount;
+  }, 0);
 
   return (
     <Navbar
@@ -117,6 +125,23 @@ export function NavigationBar() {
             Register
           </Button>
         </NavbarItem>
+        <NavbarItem>
+          <Link as={RouterLink}>
+            <Button as={RouterLink} className="bg-transparent" to="/basket">
+              <Badge
+                color="danger"
+                content={totalAmount}
+                isInvisible={totalAmount === 0}
+              >
+                <FontAwesomeIcon
+                  icon="fa-solid fa-cart-shopping"
+                  size="2x"
+                  className="text-indigo-600"
+                />
+              </Badge>
+            </Button>
+          </Link>
+        </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
         {navLinks.map((link, index) => (
@@ -131,6 +156,21 @@ export function NavigationBar() {
             </Link>
           </NavbarMenuItem>
         ))}
+        <NavbarMenuItem>
+          <Link
+            as={RouterLink}
+            className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
+            to="/basket"
+            size="lg"
+          >
+            Basket{" "}
+            {totalAmount > 0 && (
+              <span className="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-white bg-red-600 rounded-full">
+                {totalAmount}
+              </span>
+            )}
+          </Link>
+        </NavbarMenuItem>
         <NavbarMenuItem>
           <Link
             as={RouterLink}
