@@ -1,4 +1,12 @@
 import React from "react";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "@heroui/react";
 import { useCart } from "../../context/CartContext";
 
 export const Basket = () => {
@@ -29,6 +37,24 @@ export const Basket = () => {
         ))}
       </ul>
 
+      <Table aria-label="Example empty table">
+        <TableHeader>
+          <TableColumn>Product Name</TableColumn>
+          <TableColumn>Quantity</TableColumn>
+          <TableColumn>Price</TableColumn>
+          <TableColumn>Total Item Price</TableColumn>
+        </TableHeader>
+        <TableBody emptyContent={"Your cart is empty"}>
+          {cart.map((item) => (
+            <TableRow key={item.id}>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>{item.amount}</TableCell>
+              <TableCell>€{item.price.toFixed(2)}</TableCell>
+              <TableCell>€{(item.amount * item.price).toFixed(2)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
       <button onClick={emptyCart}>Vyprázdnit košík</button>
     </div>
   );
