@@ -59,7 +59,7 @@ export function NavigationBar() {
         />
         <NavbarBrand>
           <AcmeLogo />
-          <p className="font-bold text-inherit">ACME</p>
+          <p className="font-bold text-indigo-700 ">FunSHOP</p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -94,7 +94,7 @@ export function NavigationBar() {
           >
             <Link
               as={RouterLink}
-              className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
+              className="text-indigo-500 font-semibold hover:text-indigo-600 focus:text-indigo-700"
               to={link.path}
               aria-current={
                 location.pathname === link.path ? "page" : undefined

@@ -16,12 +16,17 @@ export const ProductPage = () => {
   }
 
   const handleBuy = (product) => {
-    addToCart({ id: product.id, name: product.title, price: product.price });
+    addToCart({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      image: product.image,
+    });
     console.log(product);
   };
 
   return (
-    <div className="p-4 gap-8 grid col-span sm:grid-cols-3 md:grid-cols-4">
+    <div className="p-8 gap-8 grid col-span sm:grid-cols-2 md:grid-cols-5">
       {products.map((item) => (
         <Card
           key={item.id}
@@ -32,14 +37,14 @@ export const ProductPage = () => {
           <CardBody className="overflow-visible flex justify-center items-center">
             <Image
               alt={item.title}
-              className="w-full object-cover aspect-square"
+              className="max-w-3xs object-contain aspect-square"
               radius="lg"
               shadow="sm"
               src={item.image}
             />
           </CardBody>
           <CardFooter className="text-small flex flex-col justify-between">
-            <b>{item.title}</b>
+            <p>{item.title}</p>
             <div className="flex flex-col sm:flex-row sm:justify-between items-center w-full p-2 gap-2">
               <p className="text-red-600 font-medium text-xl">€ {item.price}</p>
               <button
