@@ -13,6 +13,7 @@ import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { AuthLayout } from "./components/common/layout/AuthLayout/AuthLayout";
 import { ProductProvider } from "./context/ProductContext";
 import { CartProvider } from "./context/CartContext";
+import { CheckOut } from "./pages/CheckOut/CheckOut";
 
 export function App() {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ export function App() {
               <Route index element={<HomePage />} />
               <Route path="products" element={<ProductPage />} />
               <Route path="basket" element={<Basket />} />
+              <Route path="checkout" element={<CheckOut />} />
             </Route>
             <Route path="/auth" element={<AuthLayout />}>
               <Route path="login" element={<LoginPage />} />

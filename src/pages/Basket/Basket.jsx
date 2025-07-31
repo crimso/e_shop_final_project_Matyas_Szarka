@@ -33,9 +33,7 @@ export const Basket = () => {
 
         {cart.length === 0 ? (
           <div className="text-center py-16">
-            <p className="text-gray-500 text-xl">
-              Your cart is empty.
-            </p>
+            <p className="text-gray-500 text-xl">Your cart is empty.</p>
           </div>
         ) : (
           <>
@@ -62,17 +60,14 @@ export const Basket = () => {
                 </TableHeader>
                 <TableBody>
                   {cart.map((item) => (
-                  <TableRow
-                    key={item.id}
-                    className="hover:bg-gray-50 "
-                  >
-                    <TableCell className="p-2">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        className="w-16 h-16 object-contain rounded-md"
-                      />
-                    </TableCell>
+                    <TableRow key={item.id} className="hover:bg-gray-50 ">
+                      <TableCell className="p-2">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          className="w-16 h-16 object-contain rounded-md"
+                        />
+                      </TableCell>
                       <TableCell className="px-6 py-4 text-wrap text-sm font-medium text-gray-900">
                         {item.name}
                       </TableCell>
@@ -83,7 +78,6 @@ export const Basket = () => {
                             size="sm"
                             variant="flat"
                             onClick={() => decreaseQuantity(item.id)}
-                            
                           >
                             <FontAwesomeIcon icon="fa-solid fa-minus" />
                           </Button>
@@ -93,7 +87,6 @@ export const Basket = () => {
                             size="sm"
                             variant="flat"
                             onClick={() => increaseQuantity(item.id)}
-                            
                           >
                             <FontAwesomeIcon icon="fa-solid fa-plus" />
                           </Button>
@@ -105,21 +98,24 @@ export const Basket = () => {
                       <TableCell className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-900">
                         €{(item.amount * item.price).toFixed(2)}
                       </TableCell>
-                  </TableRow>
-                ))}
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </div>
 
             <div className="mt-6 flex items-center justify-between">
-              <div className="text-gray-600">
-                Total:{" "}
-                <span className="font-semibold">€{totalPrice.toFixed(2)}</span>
-              </div>
-                <Button onClick={emptyCart} color="danger" variant="shadow">
+              <Button onClick={emptyCart} color="danger" variant="shadow">
                 <FontAwesomeIcon icon="fa-solid fa-trash" className="mr-2" />
                 Clear Cart
               </Button>
+              <div className="text-gray-600 flex items-center gap-2">
+                <Button className="bg-green-600 text-white" variant="shadow">
+                  <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
+                  Order
+                </Button>
+                <p className="font-semibold">Total: €{totalPrice.toFixed(2)}</p>
+              </div>
             </div>
           </>
         )}
