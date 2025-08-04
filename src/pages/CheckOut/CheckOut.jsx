@@ -3,7 +3,7 @@ import { Button, Input, Image } from "@heroui/react";
 import { useCart } from "../../context/CartContext";
 
 export const CheckOut = () => {
-  const { cart } = useCart();
+  const { cart, emptyCart } = useCart();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -18,6 +18,11 @@ export const CheckOut = () => {
     e.preventDefault();
     console.log("Order sent", { name, address, city, postalCode }, totalPrice);
     alert("Order sent");
+    emptyCart();
+    setAddress([]);
+    setCity([]);
+    setName([]);
+    setPostalCode([]);
   };
 
   return (
