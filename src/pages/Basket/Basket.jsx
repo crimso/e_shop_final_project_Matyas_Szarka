@@ -1,4 +1,5 @@
 import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Table,
   TableHeader,
@@ -110,8 +111,17 @@ export const Basket = () => {
                 Clear Cart
               </Button>
               <div className="text-gray-600 flex items-center gap-2">
-                <Button className="bg-green-600 text-white" variant="shadow">
-                  <FontAwesomeIcon icon="fa-solid fa-paper-plane" />
+                <Button
+                  as={RouterLink}
+                  to="/checkout"
+                  className="text-white"
+                  color="success"
+                  variant="shadow"
+                >
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-paper-plane"
+                    className="mr-2"
+                  />
                   Order
                 </Button>
                 <p className="font-semibold">Total: €{totalPrice.toFixed(2)}</p>
