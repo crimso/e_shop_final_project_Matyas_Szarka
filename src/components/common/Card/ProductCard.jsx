@@ -34,7 +34,6 @@ export const ProductCard = () => {
         return (
           <Card
             key={id}
-            isPressable
             shadow="sm"
             onPress={() => console.log("item pressed")}
           >
