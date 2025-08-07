@@ -26,7 +26,7 @@ export const LoginPage = () => {
     setErrors({});
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
@@ -35,7 +35,8 @@ export const LoginPage = () => {
         setErrors({ api: error.message });
         console.error("Supabase login error:", error.message);
       } else {
-        setErrors({ api: "An unexpected error occurred. Please try again" });
+        alert("Login successful!");
+        navigate("/");
       }
     } catch (error) {
       setErrors({ api: "An unexpected error occurred. Please try again" });
@@ -45,5 +46,62 @@ export const LoginPage = () => {
     }
   };
 
-  return <div>LoginPage</div>;
+  return (
+    <div>
+      <h1 className="text-2xl font-bold text-center mb-6">
+        Login to Your Account
+      </h1>
+      {errors.api ? (
+        <p className="text-red-500 text-center mb-4">{errors.api}</p>
+      ) : null}
+      <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+        <div className="py-2">
+          <Input
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="your mail address here..."
+            fullWidth
+            value={formData.email}
+            onChange={handleChange}
+            isInvalid={!!errors.email}
+            errorMessage={errors.mail}
+            disabled={loading}
+          />
+        </div>
+        <div className="py-2">
+          <Input
+            name="password"
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            fullWidth
+            value={formData.password}
+            onChange={handleChange}
+            isInvalid={!!errors.password}
+            errorMessage={errors.password}
+            disabled={loading}
+          />
+          <p>
+            Dont have an account?{" "}
+            <NavLink
+              to="/auth/register"
+              className="font-medium text-blue-600 hover:text-blue-800"
+            >
+              Register!
+            </NavLink>
+          </p>
+        </div>
+        <Button
+          color="primary"
+          fullWidth
+          type="submit"
+          className="mt-2"
+          disabled={loading}
+        >
+          {loading ? "Loggin in..." : "Login"}
+        </Button>
+      </form>
+    </div>
+  );
 };
