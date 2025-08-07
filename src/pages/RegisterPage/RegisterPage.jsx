@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Input, Link } from "@heroui/react";
-import { useNavigate } from "react-router";
+import { Button, Input } from "@heroui/react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { supabase } from "../../supabaseClient";
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ export const RegisterPage = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,64 +41,111 @@ export const RegisterPage = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // In a real app, you would make an API call here to register the user
-      console.log("Registration successful:", { email: formData.email });
-      // For demonstration, let's navigate to the login page on success
-      alert("Registration successful!");
-      navigate("/auth/login");
+      setLoading(true);
+      setErrors({});
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password,
+        });
+        if (error) {
+          setErrors({ api: error.message });
+          console.error("Supabase registration error", error.message);
+        } else if (data.user) {
+          alert(
+            "Registration successful! Please check your mail to confirm your account"
+          );
+          navigate("/auth/login");
+        } else {
+          alert(
+            "Registration successful! Please check your mail to confirm your account"
+          );
+          navigate("/auth/login");
+        }
+      } catch (error) {
+        setErrors({ api: "An unexpected error occured, Please try again" });
+        console.error("Unexpected error during registration:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-center mb-6">Create an Account</h1>
-      <form className="space-y-4" onSubmit={handleSubmit} noValidate />
-      <div className="py-2">
-        <Input
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="you@example.com"
+      {errors.api && (
+        <p className="text-red-500 text-center mb-4">{errors.api}</p>
+      )}
+      <form className="space-y-4" onSubmit={handleSubmit} noValidate>
+        <div className="py-2">
+          <Input
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="you@example.com"
+            fullWidth
+            value={formData.email}
+            onChange={handleChange}
+            isInvalid={!!errors.email}
+            errorMessage={errors.email}
+            disabled={loading}
+          />
+        </div>
+        <div className="py-2">
+          <Input
+            name="password"
+            label="Password"
+            type="password"
+            placeholder="••••••••"
+            fullWidth
+            value={formData.password}
+            onChange={handleChange}
+            isInvalid={!!errors.password}
+            errorMessage={errors.password}
+            disabled={loading}
+          />
+        </div>
+        <div className="py-2">
+          <Input
+            name="confirmPassword"
+            label="Confirm Password"
+            type="password"
+            placeholder="••••••••"
+            fullWidth
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            isInvalid={!!errors.confirmPassword}
+            errorMessage={errors.confirmPassword}
+            disabled={loading}
+          />
+          <p className="mt-2">
+            Already have an account?{" "}
+            <NavLink
+              to="/auth/login"
+              className="font-medium text-blue-600 hover:text-blue-800 "
+            >
+              Login in!
+            </NavLink>
+          </p>
+        </div>
+        <Button
+          color="primary"
           fullWidth
-          value={formData.email}
-          onChange={handleChange}
-          isInvalid={!!errors.email}
-          errorMessage={errors.email}
-        />
-      </div>
-      <div className="py-2">
-        <Input
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="••••••••"
-          fullWidth
-          value={formData.password}
-          onChange={handleChange}
-          isInvalid={!!errors.password}
-          errorMessage={errors.password}
-        />
-      </div>
-      <div className="py-2">
-        <Input
-          name="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          placeholder="••••••••"
-          fullWidth
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          isInvalid={!!errors.confirmPassword}
-          errorMessage={errors.confirmPassword}
-        />
-      </div>
-      <Button color="primary" fullWidth type="submit" className="mt-2" />
+          type="submit"
+          className="mt-2"
+          disabled={loading}
+        >
+          {loading ? "Registering.." : "Register"}
+        </Button>
+      </form>
     </div>
   );
 };
