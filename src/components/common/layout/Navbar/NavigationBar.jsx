@@ -126,21 +126,19 @@ export function NavigationBar() {
           </Button>
         </NavbarItem>
         <NavbarItem>
-          <Link as={RouterLink}>
-            <Button as={RouterLink} className="bg-transparent" to="/basket">
-              <Badge
-                color="danger"
-                content={totalAmount}
-                isInvisible={totalAmount === 0}
-              >
-                <FontAwesomeIcon
-                  icon="fa-solid fa-cart-shopping"
-                  size="2x"
-                  className="text-indigo-600"
-                />
-              </Badge>
-            </Button>
-          </Link>
+          <Button as={RouterLink} className="bg-transparent" to="/basket">
+            <Badge
+              color="danger"
+              content={totalAmount}
+              isInvisible={totalAmount === 0}
+            >
+              <FontAwesomeIcon
+                icon="fa-solid fa-cart-shopping"
+                size="2x"
+                className="text-indigo-600"
+              />
+            </Badge>
+          </Button>
         </NavbarItem>
       </NavbarContent>
       <NavbarMenu>
