@@ -38,6 +38,11 @@ export function NavigationBar() {
   const { session } = useAuth();
   const navigate = useNavigate();
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/auth/login");
+  };
+
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Products", path: "/products" },
@@ -83,25 +88,39 @@ export function NavigationBar() {
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link
-            as={RouterLink}
-            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
-            to="/auth/login"
-          >
-            Login
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={RouterLink}
-            className="bg-indigo-600 text-white text-base font-medium"
-            to="/auth/register"
-            variant="flat"
-          >
-            Register
-          </Button>
-        </NavbarItem>
+        {session ? (
+          <NavbarItem>
+            <Button
+              onClick={handleLogout}
+              className="bg-indigo-600 text-white text-base font-medium"
+              variant="flat"
+            >
+              Logout
+            </Button>
+          </NavbarItem>
+        ) : (
+          <>
+            <NavbarItem className="hidden lg:flex">
+              <Link
+                as={RouterLink}
+                className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
+                to="/auth/login"
+              >
+                Login
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Button
+                as={RouterLink}
+                className="bg-indigo-600 text-white text-base font-medium"
+                to="/auth/register"
+                variant="flat"
+              >
+                Register
+              </Button>
+            </NavbarItem>
+          </>
+        )}
         <NavbarItem>
           <Button as={RouterLink} className="bg-transparent" to="/basket">
             <Badge
@@ -146,26 +165,40 @@ export function NavigationBar() {
             )}
           </Link>
         </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link
-            as={RouterLink}
-            className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
-            to="/auth/login"
-            size="lg"
-          >
-            Login
-          </Link>
-        </NavbarMenuItem>
-        <NavbarMenuItem>
-          <Link
-            as={RouterLink}
-            className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
-            to="/auth/register"
-            size="lg"
-          >
-            Register
-          </Link>
-        </NavbarMenuItem>
+        {session ? (
+          <NavbarMenuItem>
+            <Button
+              onClick={handleLogout}
+              className="bg-indigo-600 text-white text-base font-medium"
+              variant="flat"
+            >
+              Logout
+            </Button>
+          </NavbarMenuItem>
+        ) : (
+          <>
+            <NavbarMenuItem>
+              <Link
+                as={RouterLink}
+                className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
+                to="/auth/login"
+                size="lg"
+              >
+                Login
+              </Link>
+            </NavbarMenuItem>
+            <NavbarMenuItem>
+              <Link
+                as={RouterLink}
+                className="w-full text-indigo-500 font-medium hover:text-indigo-600 focus:text-indigo-700"
+                to="/auth/register"
+                size="lg"
+              >
+                Register
+              </Link>
+            </NavbarMenuItem>
+          </>
+        )}
       </NavbarMenu>
     </Navbar>
   );
