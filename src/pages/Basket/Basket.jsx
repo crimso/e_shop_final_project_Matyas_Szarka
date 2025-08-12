@@ -21,10 +21,6 @@ export const Basket = () => {
     return total + item.price * item.amount;
   }, 0);
 
-  // const totalAmount = cart.reduce((total, item) => {
-  //   return total + item.amount;
-  // }, 0);
-
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="bg-white shadow-2xl rounded-lg p-6 max-w-4xl mx-auto">
@@ -38,14 +34,13 @@ export const Basket = () => {
           </div>
         ) : (
           <>
-            <div className="overflow-x-auto">
+            <div className="hidden md:block overflow-x-auto">
               <Table
                 aria-label="Shopping Cart"
                 className="min-w-full divide-y divide-gray-200 table-auto"
               >
                 <TableHeader>
                   <TableColumn className="px-6 py-3">Image</TableColumn>
-
                   <TableColumn className="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                     Product
                   </TableColumn>
@@ -105,16 +100,70 @@ export const Basket = () => {
               </Table>
             </div>
 
-            <div className="mt-6 flex items-center justify-between">
-              <Button onClick={emptyCart} color="danger" variant="shadow">
+            <div className="md:hidden">
+              {cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="border-b border-gray-200 p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center"
+                >
+                  <div className="flex items-center mb-4 sm:mb-0">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      className="w-20 h-20 object-contain rounded-md mr-4"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {item.name}
+                      </h3>
+                      <p className="text-sm text-gray-500">
+                        €{item.price.toFixed(2)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-start sm:items-end w-full sm:w-auto">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Button
+                        isIconOnly
+                        size="sm"
+                        variant="flat"
+                        onClick={() => decreaseQuantity(item.id)}
+                      >
+                        <FontAwesomeIcon icon="fa-solid fa-minus" />
+                      </Button>
+                      <span>{item.amount}</span>
+                      <Button
+                        isIconOnly
+                        size="sm"
+                        variant="flat"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        <FontAwesomeIcon icon="fa-solid fa-plus" />
+                      </Button>
+                    </div>
+                    <p className="text-lg font-semibold text-gray-900">
+                      €{(item.amount * item.price).toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row items-center justify-between">
+              <Button
+                onClick={emptyCart}
+                color="danger"
+                variant="shadow"
+                className="mb-4 sm:mb-0"
+              >
                 <FontAwesomeIcon icon="fa-solid fa-trash" className="mr-2" />
                 Clear Cart
               </Button>
-              <div className="text-gray-600 flex items-center gap-2">
+              <div className="text-gray-600 flex flex-col sm:flex-row items-center gap-2">
                 <Button
                   as={RouterLink}
                   to="/checkout"
-                  className="text-white"
+                  className="text-white mb-2 sm:mb-0"
                   color="success"
                   variant="shadow"
                 >
@@ -124,7 +173,9 @@ export const Basket = () => {
                   />
                   Order
                 </Button>
-                <p className="font-semibold">Total: €{totalPrice.toFixed(2)}</p>
+                <p className="font-semibold text-lg">
+                  Total: €{totalPrice.toFixed(2)}
+                </p>
               </div>
             </div>
           </>
