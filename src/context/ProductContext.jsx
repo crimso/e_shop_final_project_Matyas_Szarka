@@ -36,8 +36,6 @@ export const ProductProvider = ({ children }) => {
     fetchData();
   }, []);
 
-  // useMemo prevents the context value from being a new object on every render,
-  // which would cause all consumers to re-render unnecessarily.
   const value = useMemo(
     () => ({ products, loading, error }),
     [products, loading, error]

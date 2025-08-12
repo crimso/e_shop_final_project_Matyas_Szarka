@@ -8,7 +8,7 @@ import { ProductPage } from "./pages/ProductPage/ProductPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { NotFoundPage } from "./pages/NotFoundPage/NotFoundPage";
 import { Basket } from "./pages/Basket/Basket";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { RegisterPage } from "./pages/RegisterPage/RegisterPage";
 import { AuthLayout } from "./components/common/layout/AuthLayout/AuthLayout";
 import { ProductProvider } from "./context/ProductContext";
@@ -21,6 +21,7 @@ export function App() {
     <ProductProvider>
       <CartProvider>
         <HeroUIProvider navigate={navigate} useHref={useHref}>
+          <ToastProvider placement="top-right" />
           <Routes>
             <Route path="/" element={<AppLayout />}>
               <Route index element={<HomePage />} />

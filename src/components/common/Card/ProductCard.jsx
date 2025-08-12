@@ -1,6 +1,7 @@
 import React from "react";
 import { useProducts } from "../../../context/ProductContext";
 import { useCart } from "../../../context/CartContext";
+import { addToast } from "@heroui/react";
 import { Card, CardBody, CardFooter, Image } from "@heroui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,7 +25,11 @@ export const ProductCard = () => {
       price,
       image,
     });
-    console.log(product);
+    addToast({
+      title: "Added to basket",
+      description: `${product.title} successfully added to basket`,
+      // color: "default",
+    });
   };
 
   return (
