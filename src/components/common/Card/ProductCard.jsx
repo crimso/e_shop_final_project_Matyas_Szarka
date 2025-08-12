@@ -4,10 +4,12 @@ import { useCart } from "../../../context/CartContext";
 import { addToast } from "@heroui/react";
 import { Card, CardBody, CardFooter, Image } from "@heroui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAuth } from "../../../context/AuthContext";
 
 export const ProductCard = () => {
   const { products, loading, error } = useProducts();
   const { addToCart } = useCart();
+  const { session } = useAuth();
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +56,9 @@ export const ProductCard = () => {
             <CardFooter className="text-small flex flex-col justify-between">
               <p>{title}</p>
               <div className="flex flex-col sm:flex-row sm:justify-between items-center w-full p-2 gap-2">
-                <p className="text-red-600 font-medium text-xl">€ {price}</p>
+                {session && (
+                  <p className="text-red-600 font-medium text-xl">€ {price}</p>
+                )}
                 <button
                   onClick={() => handleBuy(item)}
                   className="w-full sm:w-auto lg:text-balance text-white bg-gradient-to-r cursor-pointer from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-4 py-2 text-center"

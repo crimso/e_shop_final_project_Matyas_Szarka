@@ -1,11 +1,9 @@
 import React from "react";
-import { useLocation, Link as RouterLink } from "react-router-dom";
+import { useLocation, Link as RouterLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCart } from "../../../../context/CartContext";
-
-// export const Navbar = () => {
-//   return <div>Navbar</div>;
-// };
+import { useAuth } from "../../../../context/AuthContext";
+import { supabase } from "../../../../supabaseClient";
 
 import {
   Navbar,
@@ -37,6 +35,8 @@ export function NavigationBar() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
   const { cart } = useCart();
+  const { session } = useAuth();
+  const navigate = useNavigate();
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -64,29 +64,6 @@ export function NavigationBar() {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {/* <NavbarItem isActive={location.pathname === "/"}>
-          <Link
-            as={RouterLink}
-            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
-            to="/"
-            aria-current={location.pathname === "/" ? "page" : undefined}
-          >
-            Home
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive={location.pathname === "/products"}>
-          <Link
-            as={RouterLink}
-            className="text-indigo-500 hover:text-indigo-600 focus:text-indigo-700"
-            color="foreground"
-            to="/products"
-            aria-current={
-              location.pathname === "/products" ? "page" : undefined
-            }
-          >
-            Products
-          </Link>
-        </NavbarItem> */}
         {navLinks.map((link) => (
           <NavbarItem
             key={link.path}

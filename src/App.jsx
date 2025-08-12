@@ -14,30 +14,33 @@ import { AuthLayout } from "./components/common/layout/AuthLayout/AuthLayout";
 import { ProductProvider } from "./context/ProductContext";
 import { CartProvider } from "./context/CartContext";
 import { CheckOut } from "./pages/CheckOut/CheckOut";
+import { AuthProvider } from "./context/AuthContext";
 
 export function App() {
   const navigate = useNavigate();
   return (
-    <ProductProvider>
-      <CartProvider>
-        <HeroUIProvider navigate={navigate} useHref={useHref}>
-          <ToastProvider placement="top-right" />
-          <Routes>
-            <Route path="/" element={<AppLayout />}>
-              <Route index element={<HomePage />} />
-              <Route path="products" element={<ProductPage />} />
-              <Route path="basket" element={<Basket />} />
-              <Route path="checkout" element={<CheckOut />} />
-            </Route>
-            <Route path="/auth" element={<AuthLayout />}>
-              <Route path="login" element={<LoginPage />} />
-              <Route path="register" element={<RegisterPage />} />
-            </Route>
+    <AuthProvider>
+      <ProductProvider>
+        <CartProvider>
+          <HeroUIProvider navigate={navigate} useHref={useHref}>
+            <ToastProvider placement="top-right" />
+            <Routes>
+              <Route path="/" element={<AppLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="products" element={<ProductPage />} />
+                <Route path="basket" element={<Basket />} />
+                <Route path="checkout" element={<CheckOut />} />
+              </Route>
+              <Route path="/auth" element={<AuthLayout />}>
+                <Route path="login" element={<LoginPage />} />
+                <Route path="register" element={<RegisterPage />} />
+              </Route>
 
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </HeroUIProvider>
-      </CartProvider>
-    </ProductProvider>
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </HeroUIProvider>
+        </CartProvider>
+      </ProductProvider>
+    </AuthProvider>
   );
 }
