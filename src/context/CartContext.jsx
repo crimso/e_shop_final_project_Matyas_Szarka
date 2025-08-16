@@ -19,12 +19,12 @@ export function CartProvider({ children }) {
       const existingProduct = prevCart.find((item) => item.id === product.id);
 
       if (existingProduct) {
-        // If it exists, map over the cart and update the amount for the matching product
+        
         return prevCart.map((item) =>
           item.id === product.id ? { ...item, amount: item.amount + 1 } : item
         );
       } else {
-        // If it doesn't exist, add it with amount 1
+        
         return [...prevCart, { ...product, amount: 1 }];
       }
     });

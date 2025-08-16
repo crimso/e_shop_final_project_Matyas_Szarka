@@ -19,13 +19,13 @@ export const HomePage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <Link
                 className="inline-flex h-12 items-center justify-center rounded-lg bg-indigo-600 px-8 text-base font-medium text-white shadow transition-colors hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
-                to="/get-started" // Example path
+                to="/get-started" 
               >
                 Get Started
               </Link>
               <Link
                 className="inline-flex h-12 items-center justify-center rounded-lg border border-gray-300 bg-white px-8 text-base font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:ring-offset-2"
-                to="/learn-more" // Example path
+                to="/learn-more" 
               >
                 Learn More
               </Link>
@@ -34,13 +34,13 @@ export const HomePage = () => {
 
           <div className="flex justify-center p-4">
             <img
-              src="https://placehold.co/600x400/E0E7FF/4338CA?text=Hero+Image" // Placeholder image
+              src="https://placehold.co/600x400/E0E7FF/4338CA?text=Hero+Image" 
               alt="Hero Image"
               className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last border border-gray-200 shadow-md"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src =
-                  "https://placehold.co/600x400/E0E7FF/4338CA?text=Image+Not+Found"; // Fallback image
+                  "https://placehold.co/600x400/E0E7FF/4338CA?text=Image+Not+Found"; 
               }}
             />
           </div>

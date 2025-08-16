@@ -1,8 +1,6 @@
 import { useState, useEffect, createContext, useContext, useMemo } from "react";
 
-// It's a good practice to not export the context itself to prevent misuse.
-// Consumers should use the custom hook `useProducts`.
-// Initialize with `undefined` to make the check in `useProducts` work correctly.
+
 const ProductContext = createContext(undefined);
 
 export const useProducts = () => {
